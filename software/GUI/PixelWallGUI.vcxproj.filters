@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{b3b46a9c-d2d7-43c9-85d2-80080ee0a449}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\web">
+      <UniqueIdentifier>{7206b19e-f649-4ffc-9673-75b1e13e8e43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\app">
+      <UniqueIdentifier>{b2b86c11-0890-46e9-85f4-c3628868635f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\app\tetris">
+      <UniqueIdentifier>{3cce713c-7064-4746-af5c-5f377be24c34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\app\default">
+      <UniqueIdentifier>{73863a23-9f51-43e9-9fae-e2222ecb117e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\app\settings">
+      <UniqueIdentifier>{efd1998e-9486-46dd-819b-550f51bef152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\app\pixelIt">
+      <UniqueIdentifier>{dabb2afa-b71f-454a-9a33-e6a4ad88f32f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\app\clock">
+      <UniqueIdentifier>{e9c73d8c-55e1-4320-98ea-ea2419afec47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\app\spaceInvaders">
+      <UniqueIdentifier>{749b0230-906c-4876-8851-4b842d05a1c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\app\images">
+      <UniqueIdentifier>{42a6e41a-b25a-4706-930b-ccfc5fd5e91c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\app\snake">
+      <UniqueIdentifier>{6bfa094d-15f5-4030-b34c-f9a2aaac9913}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MainForm.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PixelWall\src\RGBColor.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PixelWall\src\ARGBColor.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PixelWall\src\LedPanel.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="LEDMatrixGUI.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PixelWall\src\web\webSites.cpp">
+      <Filter>src\web</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PixelWall\src\app\tetris\TetrisApp.cpp">
+      <Filter>src\app\tetris</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PixelWall\src\app\default\DefaultApp.cpp">
+      <Filter>src\app\default</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PixelWall\src\app\settings\SettingsApp.cpp">
+      <Filter>src\app\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="WebserverGUI.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PixelWall\src\app\pixelIt\PixelItApp.cpp">
+      <Filter>src\app\pixelIt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PixelWall\src\app\spaceInvaders\Space InvadersApp.cpp">
+      <Filter>src\app\spaceInvaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Arduino.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PixelWall\src\app\images\ImagesApp.cpp">
+      <Filter>src\app\images</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PixelWall\src\app\snake\SnakeApp.cpp">
+      <Filter>src\app\snake</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PixelWall\src\app\clock\ClockApp.cpp">
+      <Filter>src\app\clock</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MainForm.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\RGBColor.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\ARGBColor.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\LedPanel.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\PixelImgType.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="LEDMatrixGUI.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\web\webSites.h">
+      <Filter>src\web</Filter>
+    </ClInclude>
+    <ClInclude Include="Arduino.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\app\IPixelApp.h">
+      <Filter>src\app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\app\tetris\TetrisApp.h">
+      <Filter>src\app\tetris</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\app\tetris\Stones.h">
+      <Filter>src\app\tetris</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\app\default\DefaultApp.h">
+      <Filter>src\app\default</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\app\settings\SettingsApp.h">
+      <Filter>src\app\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="WebserverGUI.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\app\pixelIt\PixelItApp.h">
+      <Filter>src\app\pixelIt</Filter>
+    </ClInclude>
+    <ClInclude Include="ParameterGUI.h">
+      <Filter>Quelldateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\app\spaceInvaders\SpaceInvadersApp.h">
+      <Filter>src\app\spaceInvaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\app\images\ImagesApp.h">
+      <Filter>src\app\images</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\app\snake\SnakeApp.h">
+      <Filter>src\app\snake</Filter>
+    </ClInclude>
+    <ClInclude Include="..\PixelWall\src\app\clock\ClockApp.h">
+      <Filter>src\app\clock</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainForm.resx">
+      <Filter>Ressourcendateien</Filter>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

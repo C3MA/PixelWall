@@ -1,0 +1,21 @@
+{
+    "files.associations": {
+        "functional": "cpp",
+        "memory": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "xmemory0": "cpp",
+        "xtr1common": "cpp",
+        "xutility": "cpp",
+        "initializer_list": "cpp",
+        "list": "cpp",
+        "vector": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "iosfwd": "cpp",
+        "algorithm": "cpp",
+        "limits": "cpp",
+        "xtree": "cpp"
+    }
+}

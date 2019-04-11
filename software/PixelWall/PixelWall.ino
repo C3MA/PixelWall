@@ -15,6 +15,7 @@
 #include "src/app/tetris/TetrisApp.h"
 #include "src/app/settings/SettingsApp.h"
 #include "src/app/spaceInvaders/SpaceInvadersApp.h"
+#include "src/app/snake/SnakeApp.h"
 
 //GetInTouch git;
 //GITAction ledMatrix("draw a pixel image");
@@ -36,12 +37,13 @@ PixelItApp pixelItApp(&panel, sendWebsocketData);
 ClockApp clockApp(&panel);
 TetrisApp tetrisApp(&panel, sendWebsocketData);
 SpaceInvadersApp spaceInvadersApp(&panel, sendWebsocketData);
+SnakeApp snakeApp(&panel, sendWebsocketData);
 int oldADCValue = 0;
 int ADCCounter = 0;
 
-#define NUM_OF_APPS 7
+#define NUM_OF_APPS 8
 IPixelApp *currApp;
-IPixelApp* allApps[NUM_OF_APPS] = {&defaultApp, &settingsApp, &imagesApp, &pixelItApp, &clockApp, &tetrisApp, &spaceInvadersApp};
+IPixelApp* allApps[NUM_OF_APPS] = {&defaultApp, &settingsApp, &imagesApp, &pixelItApp, &clockApp, &tetrisApp, &spaceInvadersApp, &snakeApp};
 
 void setup()
 {

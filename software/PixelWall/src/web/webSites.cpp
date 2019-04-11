@@ -186,6 +186,21 @@ const char WebSites::HTMLTetris[] = "<div class=\"content\">"
 "</script>"
 "</body></html>";
 
+const char WebSites::HTMLSnake[] = "<div class=\"content\">"
+"<div id=\"score\" style=\"width: 100%; text-align: center; font-weight: bold; font-size: 20px;\">Score: </div>"
+"<div class=\"button unselectable\" style=\"width:48%; font-size: 80px;\" onmousedown=\"send('u')\">hoch</div><br />"
+"<div class=\"button unselectable\" style=\"width: 26%; font-size: 80px;\" onmousedown=\"send('l')\">&lt;</div>"
+"<div class=\"button unselectable\" style=\"width: 26%; font-size: 80px;\" onmousedown=\"send('r')\">&gt;</div><br />"
+"<div class=\"button unselectable\" style=\"width:48%; font-size: 80px;\" onmousedown=\"send('d')\">runter</div><br />"
+"<div class=\"button unselectable\" style=\"width:38%; font-size: 80px;\" onmousedown=\"send('p')\">pause/play</div>"
+"</div>"
+"<script>"
+"function wsData(data){"
+"document.getElementById('score').innerHTML=\"Score: \"+data"
+"}"
+"</script>"
+"</body></html>";
+
 const char WebSites::empty[] = "";
 
 const char WebSites::HTMLError404[] = "<html><head><title>404 Not Found</title></head><body><h1>Not Found</h1><p>The requested URL was not found on this server.</p></body></html>";
@@ -195,7 +210,8 @@ const char WebSites::HTMLDefault[] =  "<div class=\"content\">"
 "<a class=\"button\" href=\"/clock\">clock</a><br />"
 "<a class=\"button\" href=\"/tetris\">tetris</a>"
 "<a class=\"button\" href=\"/spaceInvaders\">Space Invaders</a><br />"
-"<a class=\"button\" href=\"/pixelIt\">pixel it!</a>"
+"<a class=\"button\" href=\"/snake\">snake</a>"
+"<a class=\"button\" href=\"/pixelIt\">pixel it!</a><br />"
 "<a class=\"button\" href=\"/images\">show an image</a>"
 "</div>"
 "</body></html>";

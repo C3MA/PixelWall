@@ -37,8 +37,20 @@ void SnakeApp::startNewGame()
 	gameRunning = true;
 	currSpeed = GAME_START_SPEED;
 	speedCnt = 0;
+
+	snakeLength = 3;
+	snakeX[0] = 5;
+	snakeX[1] = 5;
+	snakeX[2] = 5;
+	snakeY[0] = 2;
+	snakeY[1] = 1;
+	snakeY[2] = 0;
+
+	snakeDir = DOWN;
+	placeNewFood();
+
 	panel->clear();
-	panel->show();
+	refreshDisplay = true;
 }
 
 void SnakeApp::loop()
@@ -47,8 +59,14 @@ void SnakeApp::loop()
 	{
 		if(refreshDisplay)
 		{
-			//panel->clear(1);
-			//panel->show();
+			panel->clear(0);
+			for (int i = 1; i < snakeLength; i++)
+			{
+				panel->setLed(snakeX[i], snakeY[i], snakeColor, 0);
+			}
+			panel->setLed(snakeX[0], snakeY[0], headColor, 0);
+			panel->setLed(foodX, foodY, foodColor, 0);
+			panel->show();
 			refreshDisplay = false;
 		}
 
@@ -65,22 +83,34 @@ void SnakeApp::newWebsocketData(uint8_t * payload, size_t lenght)
 {
 	if(payload[0]=='l')
 	{
-
+		if(snakeDir != RIGHT)
+			snakeDir = LEFT;
 	}
 
 	if(payload[0]=='r')
 	{
-		
+		if (snakeDir != LEFT)
+			snakeDir = RIGHT;
 	}
 
 	if(payload[0]=='u')
 	{
-		
+		if (snakeDir != DOWN)
+			snakeDir = UP;
 	}
 
-	if (payload[0] == 'd')	//fast down
+	if (payload[0] == 'd')
 	{
-		
+		if (snakeDir != UP)
+			snakeDir = DOWN;
+	}
+
+	if (payload[0] == 'p')
+	{
+		if (!gameRunning)
+		{
+			startNewGame();
+		}
 	}
 }
 
@@ -92,7 +122,7 @@ WebsiteResponse_t SnakeApp::getWebsiteResponse(String parameter)
 	response.header1 = WebSites::HTMLHeader1;
 	strcpy(response.title, "Snake");
 	response.header2 = WebSites::HTMLHeader2;
-	response.body = WebSites::HTMLTetris;
+	response.body = WebSites::HTMLSnake;
 
 	return response;
 }
@@ -109,7 +139,9 @@ void SnakeApp::timerTick()
 		speedCnt++;
 		if (speedCnt >= currSpeed)
 		{
+			moveSnake();
 			speedCnt = 0;
+			refreshDisplay = true;
 		}
 	}
 }
@@ -134,4 +166,79 @@ void SnakeApp::gameOver()
 	panel->printImage(panel->icons.badSmileySmall, 3, 1, RGBColor(255, 0, 0), true, 0);
 	panel->printNumber(score, 1, 6, RGBColor(255, 255, 255), 0);
 	panel->show();
+}
+
+void SnakeApp::moveSnake()
+{
+	for (int i = snakeLength - 1; i > 0; i--)
+	{
+		snakeX[i] = snakeX[i - 1];
+		snakeY[i] = snakeY[i - 1];
+	}
+
+	if (snakeDir == DOWN)
+	{
+		snakeY[0]++;
+		if (snakeY[0] >= panel->ROWS)
+			snakeY[0] = 0;
+	}
+	else if (snakeDir == UP)
+	{
+		snakeY[0]--;
+		if (snakeY[0] < 0)
+			snakeY[0] = panel->ROWS - 1;
+	}
+	else if (snakeDir == RIGHT)
+	{
+		snakeX[0]++;
+		if (snakeX[0] >= panel->COLS)
+			snakeX[0] = 0;
+	}
+	else if (snakeDir == LEFT)
+	{
+		snakeX[0]--;
+		if (snakeX[0] < 0)
+			snakeX[0] = panel->COLS - 1;
+	}
+
+	if (isInSnake(snakeX[0], snakeY[0], true))
+		gameOver();
+
+	if (snakeX[0] == foodX && snakeY[0] == foodY)
+	{
+		score++;
+		if(score%3==0)
+			snakeLength++;
+
+		if (snakeLength % 3 == 0 && currSpeed > 5)
+			currSpeed -= 3;
+
+		refreshScore = true;
+		placeNewFood();
+	}
+}
+
+void SnakeApp::placeNewFood()
+{
+	do
+	{ 
+		foodX = random(0, panel->COLS);
+		foodY = random(0, panel->ROWS);
+	} while (isInSnake(foodX, foodY, false));
+}
+
+bool SnakeApp::isInSnake(int x, int y, bool ignoreHead)
+{
+	int start = 0;
+
+	if (ignoreHead)
+		start = 1;
+
+	for (int i = start; i < snakeLength; i++)
+	{
+		if (snakeX[i] == x && snakeY[i] == y)
+			return true;
+	}
+
+	return false;
 }

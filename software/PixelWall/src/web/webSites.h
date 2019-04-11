@@ -32,6 +32,7 @@ class WebSites
         static const char HTMLTetris[];
         static const char HTMLClock[];
         static const char HTMLSpaceInvaders[];
+		static const char HTMLSnake[];
 
 		static const WebsiteResponse_t errorPage404;
 

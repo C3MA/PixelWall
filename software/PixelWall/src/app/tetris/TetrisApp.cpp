@@ -111,12 +111,15 @@ void TetrisApp::showStartScreen()
 void TetrisApp::startNewGame()
 {
 	score = 0;
-	gameRunning = true;
+	
 	currSpeed = GAME_START_SPEED;
 	gameSpeed = GAME_START_SPEED;
 	speedCnt = 0;
 	panel->clear();
 	panel->show();
+	loadNextStone();
+
+	gameRunning = true;
 }
 
 void TetrisApp::moveDown()
@@ -291,8 +294,47 @@ WebsiteResponse_t TetrisApp::getWebsiteResponse(String parameter)
 	return response;
 }
 
-void TetrisApp::buttonEvent()
+void TetrisApp::buttonEvent(Buttons::ButtonEvent_t btnEvent)
 {
+	if(btnEvent.button == Buttons::Button_t::NES_START && btnEvent.event == Buttons::Event_t::DOWN)
+	{
+		if(!gameRunning)
+		{
+			startNewGame();
+			sendScore();
+		}
+	}
+	else if(btnEvent.button == Buttons::Button_t::NES_RIGHT && btnEvent.event == Buttons::Event_t::DOWN)
+	{
+		if (currStoneIsMoveable(currStoneX + 1, currStoneY))
+		{
+			currStoneX++;
+			refreshDisplay = true;
+		}
+	}
+	else if(btnEvent.button == Buttons::Button_t::NES_LEFT && btnEvent.event == Buttons::Event_t::DOWN)
+	{
+		if (currStoneIsMoveable(currStoneX-1, currStoneY))
+		{
+			currStoneX--;
+			refreshDisplay = true;
+		}
+	}
+	else if(btnEvent.button == Buttons::Button_t::NES_A && btnEvent.event == Buttons::Event_t::DOWN)
+	{
+		rotate();
+		refreshDisplay = true;
+	}
+	else if((btnEvent.button == Buttons::Button_t::NES_DOWN || btnEvent.button == Buttons::Button_t::NES_B) && btnEvent.event == Buttons::Event_t::DOWN)
+	{
+		currSpeed = FAST_DOWN_SPEED;
+		refreshDisplay = true;
+	}
+	else if(btnEvent.button == Buttons::Button_t::NES_DOWN && btnEvent.event == Buttons::Event_t::UP)
+	{
+		currSpeed = gameSpeed;
+		refreshDisplay = true;
+	}
 
 }
 

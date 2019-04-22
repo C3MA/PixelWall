@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include "../web/webSites.h"
+#include "../../Buttons.h"
 
 class IPixelApp
 {
@@ -12,7 +13,7 @@ class IPixelApp
     virtual void loop() = 0;
     virtual void newWebsocketData(uint8_t * payload, size_t lenght) = 0;
     virtual WebsiteResponse_t getWebsiteResponse(String parameter) = 0;
-    virtual void buttonEvent() = 0;
+    virtual void buttonEvent(Buttons::ButtonEvent_t btnEvent) = 0;
 
     /*  is called each 10ms
      *  do not do any blocking things! The funktion should return as soon as possible

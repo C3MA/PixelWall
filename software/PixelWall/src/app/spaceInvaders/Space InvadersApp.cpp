@@ -83,16 +83,7 @@ void SpaceInvadersApp::newWebsocketData(uint8_t * payload, size_t length)
 
 	if (payload[0] == 'f')	//fire!
 	{
-		//search a free fire Ball:
-		for (int i = 0; i < NUM_FIRE_BALLS; i++)
-		{
-			if (fireBallY[i] < 0)
-			{
-				fireBallY[i] = 16;
-				fireBallX[i] = shipPos;
-				break;
-			}
-		}
+		fire();
 	}
 
 	if(payload[0] == 'x')
@@ -100,6 +91,20 @@ void SpaceInvadersApp::newWebsocketData(uint8_t * payload, size_t length)
 		if (gameRunning == false)
 		{
 			startNewGame();
+		}
+	}
+}
+
+void SpaceInvadersApp::fire()
+{
+	//search a free fire Ball:
+	for (int i = 0; i < NUM_FIRE_BALLS; i++)
+	{
+		if (fireBallY[i] < 0)
+		{
+			fireBallY[i] = 16;
+			fireBallX[i] = shipPos;
+			break;
 		}
 	}
 }
@@ -118,9 +123,29 @@ WebsiteResponse_t SpaceInvadersApp::getWebsiteResponse(String parameter)
 
 }
 
-void SpaceInvadersApp::buttonEvent()
+void SpaceInvadersApp::buttonEvent(Buttons::ButtonEvent_t btnEvent)
 {
-
+	if(btnEvent.button == Buttons::Button_t::NES_A && btnEvent.event == Buttons::Event_t::DOWN)
+	{
+		fire();
+	}
+	else if(btnEvent.button == Buttons::Button_t::NES_RIGHT && btnEvent.event == Buttons::Event_t::DOWN)
+	{
+		if (shipPos < panel->COLS-1)
+			shipPos++;
+	}
+	else if(btnEvent.button == Buttons::Button_t::NES_LEFT && btnEvent.event == Buttons::Event_t::DOWN)
+	{
+		if (shipPos > 0)
+			shipPos--;
+	}
+	else if(btnEvent.button == Buttons::Button_t::NES_START && btnEvent.event == Buttons::Event_t::DOWN)
+	{
+		if (gameRunning == false)
+		{
+			startNewGame();
+		}
+	}
 }
 
 void SpaceInvadersApp::timerTick()

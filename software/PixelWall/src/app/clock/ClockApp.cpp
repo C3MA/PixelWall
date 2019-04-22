@@ -77,9 +77,12 @@ WebsiteResponse_t ClockApp::getWebsiteResponse(String parameter)
 	return response;
 }
 
-void ClockApp::buttonEvent()
+void ClockApp::buttonEvent(Buttons::ButtonEvent_t btnEvent)
 {
-
+    if(btnEvent.event == Buttons::Event_t::DOWN)
+    {
+        mode ^= 1;
+    }
 }
 
 void ClockApp::timerTick()

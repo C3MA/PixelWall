@@ -162,8 +162,44 @@ WebsiteResponse_t ImagesApp::getWebsiteResponse(String parameter)
 	return response;
 }
 
-void ImagesApp::buttonEvent()
+void ImagesApp::buttonEvent(Buttons::ButtonEvent_t btnEvent)
 {
+	if(btnEvent.event != Buttons::Event_t::DOWN)
+		return;
+
+	//mode Umschaltung
+	if(btnEvent.button == Buttons::Button_t::APP_DOWN
+	|| btnEvent.button == Buttons::Button_t::NES_LEFT
+	|| btnEvent.button == Buttons::Button_t::NES_RIGHT)
+    {
+		if(layer0Mode < 3)
+			layer0Mode++;
+		else
+			layer0Mode = 0;
+		
+		newMode = true;
+    }
+	//speed Umschaltung
+	else if(btnEvent.button == Buttons::Button_t::APP_UP
+	|| btnEvent.button == Buttons::Button_t::NES_DOWN)
+    {
+		if(speedLayer0Change < 6)
+			speedLayer0Change++;
+		else
+			speedLayer0Change = 0;
+    }
+	else if(btnEvent.button == Buttons::Button_t::NES_UP)
+    {
+		if(speedLayer0Change > 0)
+			speedLayer0Change--;
+		else
+			speedLayer0Change = 5;
+    }
+	if(btnEvent.button == Buttons::Button_t::NES_A
+	|| btnEvent.button == Buttons::Button_t::NES_B)
+    {
+		newMode = true;
+    }
 }
 
 void ImagesApp::timerTick()

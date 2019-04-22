@@ -3,6 +3,7 @@
 
 //#include <GetInTouch.h>
 
+#include "Buttons.h"
 #include "src/Parameter.h"
 #include "src/LedPanel.h"
 #include "src/web/webserver.h"
@@ -26,6 +27,8 @@ WebsiteResponse_t webServerRequest(String request, String parameter);
 void sendWebsocketData(char* payload, uint8_t len);
 void ICACHE_RAM_ATTR onTimerISR();
 
+Buttons buttons;
+Buttons::ButtonEvent_t buttonState;
 LedPanel panel;
 WebSites webSites;
 Parameter parameter;
@@ -49,8 +52,8 @@ void setup()
 {
   panel.clear(0);
   panel.clear(1);
-  pinMode(4, OUTPUT);
-  pinMode(5, OUTPUT);
+
+  buttons.init();
   panel.ledMatrix.setBrightness(20);
 
   Parameter::load();
@@ -206,19 +209,35 @@ void sendWebsocketData(char* payload, uint8_t len)
 
 void loop()
 {
-  // check if WLAN is connected
-  /*if (WiFi.status() != WL_CONNECTED)
-  {
-    Serial.print("WiFi start...");
-    WiFiStart();
-    Serial.println(" [OK]");
-  }*/
 
   webserver.loop();
   
+  Buttons::ButtonEvent_t buttonState = buttons.getPressedButton();
+
+  if(buttonState.button != Buttons::Button_t::NONE)
+  {
+    if(buttonState.button == Buttons::Button_t::NES_SELECT || buttonState.button == Buttons::Button_t::APP_SELECT)
+    {
+      if(buttonState.event == Buttons::Event_t::DOWN)
+      {
+        Parameter::lastAppIndex++;
+        if(Parameter::lastAppIndex >= NUM_OF_APPS)
+          Parameter::lastAppIndex = 0;
+
+        Parameter::save();
+        currApp->end();
+        currApp = allApps[Parameter::lastAppIndex];
+        currApp->start();
+      }
+    }
+    else
+    {
+      currApp->buttonEvent(buttonState);
+    }
+  }
+
   currApp->loop();
   
-
   if(ADCCounter++ > 100)
   {
     int tmp = analogRead(A0);
@@ -245,6 +264,8 @@ void loop()
       ledMatrix.ended();
   }*/
 }
+
+
 /*
 void showOnMatrix(String data)
 {

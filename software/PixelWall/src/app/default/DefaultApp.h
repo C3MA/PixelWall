@@ -14,7 +14,7 @@ class DefaultApp :public IPixelApp
     void loop();
     void newWebsocketData(uint8_t * payload, size_t lenght);
 	WebsiteResponse_t getWebsiteResponse(String parameter);
-    void buttonEvent();
+    void buttonEvent(Buttons::ButtonEvent_t btnEvent);
     void timerTick();
     String getName();
 

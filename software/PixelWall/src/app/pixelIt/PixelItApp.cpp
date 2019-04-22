@@ -92,7 +92,7 @@ WebsiteResponse_t PixelItApp::getWebsiteResponse(String parameter)
 
 }
 
-void PixelItApp::buttonEvent()
+void PixelItApp::buttonEvent(Buttons::ButtonEvent_t btnEvent)
 {
 
 }

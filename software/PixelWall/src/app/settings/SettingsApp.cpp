@@ -84,7 +84,7 @@ WebsiteResponse_t SettingsApp::getWebsiteResponse(String parameter)
 	return response;
 }
 
-void SettingsApp::buttonEvent()
+void SettingsApp::buttonEvent(Buttons::ButtonEvent_t btnEvent)
 {
 
 }

@@ -127,9 +127,35 @@ WebsiteResponse_t SnakeApp::getWebsiteResponse(String parameter)
 	return response;
 }
 
-void SnakeApp::buttonEvent()
+void SnakeApp::buttonEvent(Buttons::ButtonEvent_t btnEvent)
 {
-
+	if(btnEvent.button == Buttons::Button_t::NES_UP && btnEvent.event == Buttons::Event_t::DOWN)
+	{
+		if (snakeDir != DOWN)
+			snakeDir = UP;
+	}
+	else if(btnEvent.button == Buttons::Button_t::NES_RIGHT && btnEvent.event == Buttons::Event_t::DOWN)
+	{
+		if (snakeDir != LEFT)
+			snakeDir = RIGHT;
+	}
+	else if(btnEvent.button == Buttons::Button_t::NES_DOWN && btnEvent.event == Buttons::Event_t::DOWN)
+	{
+		if (snakeDir != UP)
+			snakeDir = DOWN;
+	}
+	else if(btnEvent.button == Buttons::Button_t::NES_LEFT && btnEvent.event == Buttons::Event_t::DOWN)
+	{
+		if (snakeDir != RIGHT)
+			snakeDir = LEFT;
+	}
+	else if(btnEvent.button == Buttons::Button_t::NES_START && btnEvent.event == Buttons::Event_t::DOWN)
+	{
+		if (!gameRunning)
+		{
+			startNewGame();
+		}
+	}
 }
 
 void SnakeApp::timerTick()
@@ -208,10 +234,15 @@ void SnakeApp::moveSnake()
 	{
 		score++;
 		if(score%3==0)
+		{
 			snakeLength++;
+			//setze neues Element erstmal außerhalb des Bildes, damit es nicht irgendwo in der Schlange liegt.
+			snakeX[snakeLength-1] = -1;
+			snakeY[snakeLength-1] = -1;
+		}
 
-		if (snakeLength % 3 == 0 && currSpeed > 5)
-			currSpeed -= 3;
+		if (snakeLength % 3 == 0 && currSpeed > 10)
+			currSpeed--;
 
 		refreshScore = true;
 		placeNewFood();

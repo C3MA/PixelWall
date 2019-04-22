@@ -111,7 +111,7 @@ WebsiteResponse_t DefaultApp::getWebsiteResponse(String parameter)
 	return response;
 }
 
-void DefaultApp::buttonEvent()
+void DefaultApp::buttonEvent(Buttons::ButtonEvent_t btnEvent)
 {
 
 }

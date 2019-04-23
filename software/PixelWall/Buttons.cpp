@@ -8,7 +8,7 @@
 #define PIN_NES_DATA		13
 #define PIN_NES_LATCH		14
 #define PIN_NES_CLK			15
-#define PIN_DETECT			9
+#define PIN_DETECT			16
 
 //masks for NES controller
 #define MASK_BTN_A 			0x80
@@ -26,7 +26,7 @@ void Buttons::init()
 	pinMode(PIN_APP_SELECT, INPUT_PULLUP);
 	pinMode(PIN_APP_UP, INPUT_PULLUP);
 	pinMode(PIN_APP_DOWN, INPUT_PULLUP);
-	pinMode(PIN_DETECT, INPUT_PULLUP);
+	pinMode(PIN_DETECT, INPUT_PULLUP);	//Pull down?
 
 	pinMode(PIN_NES_LATCH, OUTPUT);
 	pinMode(PIN_NES_CLK, OUTPUT);
@@ -54,7 +54,7 @@ Buttons::ButtonEvent_t Buttons::getPressedButton()
 
 bool Buttons::buttonModulPresent()
 {
-	return (digitalRead(PIN_DETECT) == LOW);
+	return (digitalRead(PIN_DETECT) == HIGH);
 }
 
 Buttons::ButtonEvent_t Buttons::readNesButtons()

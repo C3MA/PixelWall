@@ -238,18 +238,25 @@ void loop()
 
   currApp->loop();
   
-  if(ADCCounter++ > 100)
+  if(buttons.buttonModulPresent())
   {
-    int tmp = analogRead(A0);
-    if(tmp > oldADCValue + 10 || tmp < oldADCValue - 10)
+    if(ADCCounter++ > 100)
     {
-      oldADCValue = tmp;
+      int tmp = analogRead(A0);
+      if(tmp > oldADCValue + 5 || tmp < oldADCValue - 5)
+      {
+        oldADCValue = tmp;
 
-      tmp = tmp / 10;
-      if(tmp > 100) tmp = 100;
-      if(tmp < 1) tmp = 1;
-      panel.ledMatrix.setBrightness(tmp);
+        tmp = tmp / 10;
+        if(tmp > 100) tmp = 100;
+        if(tmp < 1) tmp = 1;
+        panel.ledMatrix.setBrightness(tmp);
+      }
+      ADCCounter=0;
     }
+  }
+  else
+  {
     ADCCounter=0;
   }
 

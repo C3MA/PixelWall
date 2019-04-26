@@ -169,7 +169,6 @@ void ImagesApp::buttonEvent(Buttons::ButtonEvent_t btnEvent)
 
 	//mode Umschaltung
 	if(btnEvent.button == Buttons::Button_t::APP_DOWN
-	|| btnEvent.button == Buttons::Button_t::NES_LEFT
 	|| btnEvent.button == Buttons::Button_t::NES_RIGHT)
     {
 		if(layer0Mode < 3)
@@ -179,9 +178,17 @@ void ImagesApp::buttonEvent(Buttons::ButtonEvent_t btnEvent)
 		
 		newMode = true;
     }
+	else if(btnEvent.button == Buttons::Button_t::NES_LEFT)
+	{
+		if(layer0Mode > 0)
+			layer0Mode--;
+		else
+			layer0Mode = 3;
+		
+		newMode = true;
+	}
 	//speed Umschaltung
-	else if(btnEvent.button == Buttons::Button_t::APP_UP
-	|| btnEvent.button == Buttons::Button_t::NES_DOWN)
+	else if(btnEvent.button == Buttons::Button_t::NES_DOWN)
     {
 		if(speedLayer0Change < 6)
 			speedLayer0Change++;
@@ -195,7 +202,8 @@ void ImagesApp::buttonEvent(Buttons::ButtonEvent_t btnEvent)
 		else
 			speedLayer0Change = 5;
     }
-	if(btnEvent.button == Buttons::Button_t::NES_A
+	if(btnEvent.button == Buttons::Button_t::APP_UP
+	|| btnEvent.button == Buttons::Button_t::NES_A
 	|| btnEvent.button == Buttons::Button_t::NES_B)
     {
 		newMode = true;

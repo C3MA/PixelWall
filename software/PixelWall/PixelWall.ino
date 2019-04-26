@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 
-//#include <GetInTouch.h>
+#include <GetInTouch.h>
 
 #include "Buttons.h"
 #include "src/Parameter.h"
@@ -18,8 +18,8 @@
 #include "src/app/spaceInvaders/SpaceInvadersApp.h"
 #include "src/app/snake/SnakeApp.h"
 
-//GetInTouch git;
-//GITAction ledMatrix("draw a pixel image");
+GetInTouch git;
+GITAction ledMatrix("Draw an image on the PixelWall");
 
 void showOnMatrix(String data);
 void webSocketEvent(uint8_t num, WStype_t type, uint8_t *payload, size_t lenght);
@@ -59,8 +59,8 @@ void setup()
   Parameter::load();
 
   currApp = allApps[Parameter::lastAppIndex];
-  Serial.begin(115200);
-  //Serial.begin(9600);
+  //Serial.begin(115200); //Default Baudrate
+  Serial.begin(9600);     //if using GetInTouch, use 9600 Buad
   
   delay(2000);
 
@@ -104,9 +104,9 @@ void setup()
 
   currApp->start();
 
-  //ledMatrix.addPixelMatrix("matrix", 12, 18);
-  //git.init();
-  //git.addAction(&ledMatrix);
+  ledMatrix.addPixelMatrix("matrix", 12, 18);
+  git.init();
+  git.addAction(&ledMatrix);
 }
 
 void ICACHE_RAM_ATTR onTimerISR(){
@@ -261,7 +261,7 @@ void loop()
   }
 
 
-  /*git.run();
+  git.run();
 
   if(ledMatrix.isTriggered()) {
       //show the user input
@@ -269,11 +269,11 @@ void loop()
 
       //tell the server that the action is now ended
       ledMatrix.ended();
-  }*/
+  }
 }
 
 
-/*
+
 void showOnMatrix(String data)
 {
   for(uint8_t i = 0; i < data.length() && i < (panel.COLS * panel.ROWS); i++)
@@ -283,33 +283,26 @@ void showOnMatrix(String data)
 
     if(data.charAt(i)=='1')
       // red
-      //neoPixels.setPixelColor(i, MATRIX_BRIGHTNESS,0,0);
       panel.setLed(col, row, RGBColor(255,0,0), 0);
     else if(data.charAt(i)=='2')
       // green
-      //neoPixels.setPixelColor(i, 0, MATRIX_BRIGHTNESS,0);
       panel.setLed(col, row, RGBColor(0,255,0), 0);
     else if(data.charAt(i)=='3')
       // blue
-      //neoPixels.setPixelColor(i, 0, 0, MATRIX_BRIGHTNESS);
       panel.setLed(col, row, RGBColor(0,0,255), 0);
     else if(data.charAt(i)=='4')
       // white
-      //neoPixels.setPixelColor(i, MATRIX_BRIGHTNESS, MATRIX_BRIGHTNESS, MATRIX_BRIGHTNESS);
       panel.setLed(col, row, RGBColor(255,255,255), 0);
     else if(data.charAt(i)=='5')
       // yellow
-      //neoPixels.setPixelColor(i, MATRIX_BRIGHTNESS, MATRIX_BRIGHTNESS, 0);
       panel.setLed(col, row, RGBColor(255,255,0), 0);
     else if(data.charAt(i)=='6')
       // orange
-      //neoPixels.setPixelColor(i, MATRIX_BRIGHTNESS, (MATRIX_BRIGHTNESS >> 1), 0);
       panel.setLed(col, row, RGBColor(255,128,0), 0);
     else 
       // black
-      //neoPixels.setPixelColor(i, 0, 0, 0);
       panel.setLed(col, row, RGBColor(0,0,0), 0);
   }
   
   panel.show();
-}*/
+}

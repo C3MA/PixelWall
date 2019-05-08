@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 
-#include <GetInTouch.h>
+//#include <GetInTouch.h>
 
 #include "Buttons.h"
 #include "src/Parameter.h"
@@ -18,8 +18,8 @@
 #include "src/app/spaceInvaders/SpaceInvadersApp.h"
 #include "src/app/snake/SnakeApp.h"
 
-GetInTouch git;
-GITAction ledMatrix("Draw an image on the PixelWall");
+//GetInTouch git;
+//GITAction ledMatrix("Draw an image on the PixelWall");
 
 void showOnMatrix(String data);
 void webSocketEvent(uint8_t num, WStype_t type, uint8_t *payload, size_t lenght);
@@ -43,6 +43,7 @@ SpaceInvadersApp spaceInvadersApp(&panel, sendWebsocketData);
 SnakeApp snakeApp(&panel, sendWebsocketData);
 int oldADCValue = 0;
 int ADCCounter = 0;
+int ADCSum = 0;
 
 #define NUM_OF_APPS 8
 IPixelApp *currApp;
@@ -59,8 +60,8 @@ void setup()
   Parameter::load();
 
   currApp = allApps[Parameter::lastAppIndex];
-  //Serial.begin(115200); //Default Baudrate
-  Serial.begin(9600);     //if using GetInTouch, use 9600 Buad
+  Serial.begin(115200); //Default Baudrate
+  //Serial.begin(9600);     //if using GetInTouch, use 9600 Buad
   
   delay(2000);
 
@@ -104,9 +105,9 @@ void setup()
 
   currApp->start();
 
-  ledMatrix.addPixelMatrix("matrix", 12, 18);
-  git.init();
-  git.addAction(&ledMatrix);
+  //ledMatrix.addPixelMatrix("matrix", 12, 18);
+  //git.init();
+  //git.addAction(&ledMatrix);
 }
 
 void ICACHE_RAM_ATTR onTimerISR(){
@@ -240,9 +241,11 @@ void loop()
   
   if(buttons.buttonModulPresent())
   {
+    ADCSum += analogRead(A0);
+
     if(ADCCounter++ > 100)
     {
-      int tmp = analogRead(A0);
+      int tmp = ADCSum / 100;
       if(tmp > oldADCValue + 5 || tmp < oldADCValue - 5)
       {
         oldADCValue = tmp;
@@ -253,6 +256,7 @@ void loop()
         panel.ledMatrix.setBrightness(tmp);
       }
       ADCCounter=0;
+      ADCSum = 0;
     }
   }
   else
@@ -261,7 +265,7 @@ void loop()
   }
 
 
-  git.run();
+  /*git.run();
 
   if(ledMatrix.isTriggered()) {
       //show the user input
@@ -269,7 +273,7 @@ void loop()
 
       //tell the server that the action is now ended
       ledMatrix.ended();
-  }
+  }*/
 }
 
 
